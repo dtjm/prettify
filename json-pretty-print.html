@@ -13,9 +13,12 @@
 </head>
 
 <body>
-<textarea placeholder="Paste JSON here" id="input"
-onchange="textareaDidChange(this)"></textarea>
-    
+    <textarea placeholder="Paste JSON here" id="input" onchange="textareaDidChange(this)"></textarea>
+    <pre id="error"></pre>
+    <pre id="output"></pre>
+</body>
+
+<script type="text/javascript">
 function textareaDidChange(textarea){
 
     var output = document.getElementById("output");

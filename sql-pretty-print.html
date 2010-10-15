@@ -1,0 +1,45 @@
+<html>
+
+<head>
+    <title>SQL Pretty-printer</title>
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata&subset=latin'
+    rel='stylesheet' type='text/css'/>
+
+    <style type="text/css">
+        body {font-size: 12pt; padding: 20px}
+        #input{font-size: 6pt}
+        pre {font-family: 'Inconsolata', monospace}
+    </style>
+</head>
+
+<body>
+    <textarea placeholder="Paste SQL here" id="input" onchange="textareaDidChange(this)"></textarea>
+    <pre id="error"></pre>
+    <pre id="output"></pre>
+</body>
+
+
+<script type="text/javascript">
+function textareaDidChange(textarea){
+
+    var output = document.getElementById("output");
+    var errorElement = document.getElementById("error");
+    
+    try {
+        var formatted = SQLPrettyPrint(textarea.value);
+        output.innerText = formatted;
+        errorElement.innerText = "";
+    } 
+        
+    catch(error) {
+        errorElement.innerText = error;
+    }
+}
+
+function SQLPrettyPrint(sql) {
+    return sql.replace(/(SELECT|FROM|WHERE|INNER JOIN|ORDER BY|LIMIT)/ig, "\n$1")
+        .replace(/(.+?) AS (.+?,)/gi, "$1 AS $2\n\t");
+}
+
+</script>
+</html>
